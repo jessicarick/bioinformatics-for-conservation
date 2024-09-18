@@ -1,9 +1,9 @@
 ---
-title: My Site
+title: WFSC 496/596 Fall 2024
 toc: false
 ---
 
-This is the landing page.
+This is a website to share code and notes from WFSC 496/596: Bioinformatics for Conservation in Fall 2024. To view each week's class notes, click on the Docs link below.
 
 ## Explore
 
@@ -11,7 +11,3 @@ This is the landing page.
   {{< card link="docs" title="Docs" icon="book-open" >}}
   {{< card link="about" title="About" icon="user" >}}
 {{< /cards >}}
-
-## Documentation
-
-For more information, visit [Hextra](https://imfing.github.io/hextra).
