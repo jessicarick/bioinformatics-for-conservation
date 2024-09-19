@@ -2,7 +2,7 @@
 title: Read alignment
 type: docs
 prev: docs/folder/prevariant-filtering
-next: 
+next: docs/folder/variant-calling
 ---
 
 ## Aligning reads to a genome
