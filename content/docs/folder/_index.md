@@ -2,7 +2,7 @@
 title: Documentation
 type: docs
 prev: docs/getting-started
-next: docs/folder/ua-hpc-intro
+next: docs/folder/1-ua-hpc-intro
 sidebar:
   open: true
 ---
