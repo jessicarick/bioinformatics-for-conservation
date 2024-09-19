@@ -1,5 +1,5 @@
 ---
-title: Read alignment
+title: 3 - Read alignment
 type: docs
 prev: docs/folder/2-prevariant-filtering
 next: docs/folder/4-variant-calling
