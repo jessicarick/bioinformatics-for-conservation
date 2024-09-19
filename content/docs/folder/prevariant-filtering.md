@@ -2,6 +2,7 @@
 title: Quality Assessment and Filtering
 type: docs
 prev: docs/folder/ua-hpc-intro
+next: docs/folder/read-alignment
 ---
 
 ## Why do we need to filter our data?
@@ -44,10 +45,4 @@ As we look through the results, the program will flag what it thinks may be conc
 - Load using `module load trimmomatic`
 - Example code: `trimmomatic SE -phred33 input.fq.gz output.fq.gz ILLUMINACLIP:TruSeq3-SE:2:30:10 LEADING:3 TRAILING:3 MINLEN:36` -- where `2:30:10` refers to the number of seed mismatches (the maximum mismatch count which will still allow a full match to be performed), palindrome clip threshold (how accurate the match between the two 'adapter ligated' reads must be for PE palindrome read alignment), and simple clip threshold (how accurate the match between any adapter sequence must be against a read); `LEADING:3` and `TRAILING:3` specifies minimum base quality at the ends of reads; `MINLEN:36` specifies the minimum read length for the read to be kept
 
-## Aligning reads to a genome
-Once the reads look good, then we need to align them to a genome so that we can make sense of them. For this, we need (1) a program to use, (2) the reads we want to align, and (3) the genome that we want to align the reads to. The common alignment programs that are used for Illumina short reads include [bwa](https://bio-bwa.sourceforge.net/bwa.shtml) and [bowtie2](https://bowtie-bio.sourceforge.net/bowtie2/manual.shtml). These are both available as modules: `module load bwa` // `module load bowtie2`.
-
-We also need a reference genome to use! Look on NCBI genome database if you don’t have one → can download the genome file (for today, we’ll be using the Arctic charr reference genome: https://www.ncbi.nlm.nih.gov/datasets/genome/GCF_002910315.2/, which I’ve already downloaded to our shared directory) 
-I’ve already indexed the genome, but to do so with your own genome, you’ll need to use bwa index genome.fa.gz and bowtie2-build genome.fa.gz (this can take a while, depending on the size of your genome)
-
-Other aligners may be better for your purposes in the future, depending on what kind of data you’re working with. There also are “workflow” programs that can be used to do many of these steps together: [STACKS](https://catchenlab.life.illinois.edu/stacks/manual/), [ipyrad](https://ipyrad.readthedocs.io/en/master/index.html), etc. (but these usually use bwa or bowtie2 under the hood).
+Once we've filtered our reads, we can run Fastqc again if we'd like to check whether our data seem to have improved. Once we're satisfied, we can move on to aligning our reads to a genome.
