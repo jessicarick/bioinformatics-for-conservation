@@ -1,5 +1,5 @@
 ---
-title: Quality Assessment and Filtering
+title: 2 - Quality Assessment and Filtering
 type: docs
 prev: docs/folder/1-ua-hpc-intro
 next: docs/folder/3-read-alignment
