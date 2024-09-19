@@ -2,7 +2,7 @@
 title: UA HPC Tutorial
 type: docs
 prev: docs/folder/
-next: docs/folder/prevariant-filtering
+next: docs/folder/2-prevariant-filtering
 ---
 
 ## Logging into the UA HPC
