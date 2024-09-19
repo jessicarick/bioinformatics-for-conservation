@@ -1,5 +1,5 @@
 ---
-title: UA HPC Tutorial
+title: 1 - UA HPC Tutorial
 type: docs
 prev: docs/folder/
 next: docs/folder/2-prevariant-filtering
