@@ -1,8 +1,8 @@
 ---
 title: Quality Assessment and Filtering
 type: docs
-prev: docs/folder/ua-hpc-intro
-next: docs/folder/read-alignment
+prev: docs/folder/1-ua-hpc-intro
+next: docs/folder/3-read-alignment
 ---
 
 ## Why do we need to filter our data?
