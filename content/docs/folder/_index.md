@@ -1,10 +1,10 @@
 ---
 title: Folder
 type: docs
-prev: docs/first-page
-next: docs/folder/leaf
+prev: docs/getting-started
+next: docs/folder/ua-hpc-intro
 sidebar:
   open: true
 ---
 
-Pages can be organized into folders.
+This is the folder for most of our documentation.
