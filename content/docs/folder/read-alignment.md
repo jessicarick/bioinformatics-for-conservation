@@ -1,5 +1,5 @@
 ---
-title: Quality Assessment and Filtering
+title: Read alignment
 type: docs
 prev: docs/folder/prevariant-filtering
 next: 
