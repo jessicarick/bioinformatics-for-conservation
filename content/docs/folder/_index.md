@@ -1,5 +1,5 @@
 ---
-title: Folder
+title: Documentation
 type: docs
 prev: docs/getting-started
 next: docs/folder/ua-hpc-intro
