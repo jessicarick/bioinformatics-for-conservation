@@ -37,7 +37,12 @@ As we look through the results, the program will flag what it thinks may be conc
 ## How do we trim and filter our reads?
 [Cutadapt](https://cutadapt.readthedocs.io/en/stable/guide.html) is commonly used for filtering/trimming sequencing reads
 - Load on the UA HPC using `module load cutadapt`
-- We probably want to quality trim the end of the reads (`-q 10` trims anything with quality < 10) and maybe trim the adapter sequences (if needed, using `-a ADAPTER` or `-a file:adapters.fasta`)
+- We probably want to quality trim the end of the reads (`-q 10` trims anything with quality < 10) and maybe trim the adapter sequences (if needed, using `-a ADAPTER` or `-a file:adapters.fasta`). In class, we chose to trim any bases with a quality < 20. To do this, we used the following code:
+
+```sh
+cutadapt -q 20 -o AC1-AC16_0505_009-q20.fastq /xdisk/jrick/consbioinf/shared_data/char_fastq/AC1-AC16_0505_009.fastq
+```
+  
 - Info from cutadapt documentation: Under some circumstances, you may want to consider not trimming adapters at all. For example, a good library prepared for exome, genome or transcriptome sequencing should contain very few reads with adapters anyway. Also, some read mapping programs including BWA-MEM and STAR will soft-clip bases at the 3’ ends of reads that do not match the reference, which will take care of adapters implicitly.
 - Cutadapt can also be used to demultiplex when many individuals are included in the same file (some sequencing facilities will give you demultiplexed fastq files; others, you’ll have to demultiplex yourself) — `cutadapt -e 1 -g ^file:AC_1_barcode_key.fasta -o “AC1_demux/AC1-demux-{name}.fastq” AC_1.clean.fastq`
 
