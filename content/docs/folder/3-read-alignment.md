@@ -30,7 +30,7 @@ These processes both produce `.sam` files, which stands for **S**equence **A**li
 ```sh
 module load samtools
 
-samtools view --bam --with-header --output aln-ind1-bwa.bam aln-ind1-bwa.sam
+samtools view -b --output aln-ind1-bwa.bam aln-ind1-bwa.sam
 ```
 From here, many downstream applications will require that your `.bam` file is sorted, such that the reads are in the order that they occur in the genome. This can be done using the following code:
 
