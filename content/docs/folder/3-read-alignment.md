@@ -66,3 +66,4 @@ for bam in *.sorted.bam; do
   echo "${bam},${reads},${mapped}" >> AC1_bam_stats.csv # output these numbers into a text file
 done
 ```
+If an individual has a very low alignment percentage, then that likely means that you'll want to exclude them from analyses; this usually means that there is either contamination or something failed with the sequencing library preparation for this individual.
