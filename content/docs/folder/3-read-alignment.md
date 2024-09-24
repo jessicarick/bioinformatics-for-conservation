@@ -47,3 +47,22 @@ When working with paired-end reads, the program calls are similar, but you will 
 ```sh
 bwa mem /xdisk/jrick/consbioinf/shared_data/Salvelinus_spp_genome.fasta ind1_reads_fwd.fastq ind1_reads_rev.fastq > aln-ind1-paired-bwa.sam
 ```
+
+## Assessing read alignment
+If we want to check and see how well reads aligned to the reference genome for each of our individuals, we can use the `samtools flagstat` function to calculate the total number of reads, number of reads that mapped well to the reference genome, and what percentage of reads mapped.
+
+```sh
+module load samtools
+samtools flagstat aln-ind1-bwa.sorted.bam
+```
+This will output some information, and the lines that we're most interested in are `XXXX + 0 in total (QC-passed reads + QC-failed reads)` (where XXXX is the number of raw reads) and `XXXX + 0 mapped (X.X%)` (where XXXX is the number of reads that mapped to the reference genome and X.X% is the percentage of the raw reads that this number represents). If we wanted to look at these numbers for a number of different individual `.bam` files, then we can use a for loop along with some bash text manipulation. For example:
+
+```sh
+for bam in *.sorted.bam; do
+  echo $bam
+  base=`basename $bam .q10.sorted.bam` # remove the file ending to get just the individual ID
+  reads=`samtools flagstat $bam | grep total | cut -f 1 -d' '` # extract just the total raw reads
+  mapped=`samtools flagstat $bam | grep mapped | head -n 1 | cut -f 1 -d' '` # extract just the number of mapped reads
+  echo "${bam},${reads},${mapped}" >> AC1_bam_stats.csv # output these numbers into a text file
+done
+```
