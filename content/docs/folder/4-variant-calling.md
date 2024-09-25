@@ -26,7 +26,22 @@ For today, we'll be working with the BCFtools/SAMtools pipeline for calling vari
 
 ```sh
 module load bcftools
-bcftools mpileup -Ou -f reference.fa bamfiles/*.sorted.bam | bcftools call -mv -Ou -o variants.vcf
+bcftools mpileup -Ou -a AD,DP -f reference.fa bamfiles/*.sorted.bam | bcftools call -m -v -Ov -o variants.vcf
 ```
 
-To see what each of the flags that we use in this code means (and to see what other options exist), we can check out the BCFtools `mpileup` and `call` manual pages ([https://samtools.github.io/bcftools/bcftools.html#mpileup](https://samtools.github.io/bcftools/bcftools.html#mpileup) and [https://samtools.github.io/bcftools/bcftools.html#call](https://samtools.github.io/bcftools/bcftools.html#call)). For example, if we run this code, we will see a warning that only the first 250 reads for each region are examined and we may want to increase this number. To increase the read depth analyzed, we can add a `-d 1000` option to increase it to the first 1000 reads. We also likely want to retain read depth information (so that we can filter based on depth later on), in which case we may want to add the `-a AD,DP` flag after our `bcftools mpileup` command.
+To see what each of the flags that we use in this code means (and to see what other options exist), we can check out the BCFtools `mpileup` and `call` manual pages ([https://samtools.github.io/bcftools/bcftools.html#mpileup](https://samtools.github.io/bcftools/bcftools.html#mpileup) and [https://samtools.github.io/bcftools/bcftools.html#call](https://samtools.github.io/bcftools/bcftools.html#call)). 
+
+For `bcftools mpileup`:
+* `-a` - Annotate the vcf - here we add allelic depth (AD) and genotype depth (DP).
+* `-O` - the output type. Here it is `u` which means we do not compress the output.
+* `-f` - specify the reference genome to call variants against.
+
+For bcftools call:
+* `-v` - output variant sites only - i.e. ignore non-variant parts of the reads
+* `-m` - use bcftools multiallelic caller
+* `-O` - specify the output type, here it is `v` - i.e. vcf; you could also choose `z`, which would mean a compressed (zipped) vcf
+* `-o` output path
+
+The pipe (`|`) in between these two calls allows us to pass the results from the `bcftools mpileup` command directly into `bcftools call` instead of creating an intermediate file. If we run this code, we will see a warning that only the first 250 reads for each region are examined and we may want to increase this number. To increase the read depth analyzed, we can add a `-d 1000` option to increase it to the first 1000 reads. 
+
+
