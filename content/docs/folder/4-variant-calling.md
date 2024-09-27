@@ -2,7 +2,7 @@
 title: 4 - Variant calling
 type: docs
 prev: docs/folder/3-read-alignment
-next: docs/folder/4-variant-calling
+next: docs/folder/5-variant-filtering
 ---
 
 ** Note that this page is not yet complete **
