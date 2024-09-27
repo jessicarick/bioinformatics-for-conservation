@@ -33,5 +33,94 @@ vcftools --vcf variants.vcf --missing-site --out vcf_stats/variants
 # report per-individual heterozyosity and Fis
 vcftools --vcf variants.vcf --het --out vcf_stats/variants
 ```
-Once we have each of these reports, we can use `R` to summarize and visualize their distributions to inform our further filtering of the data.
+Once we have each of these reports, we can use `R` to summarize and visualize their distributions to inform our further filtering of the data. To do this, we can download the output files (all contained within `vcf_stats/` and use a script such as the following code:
+
+```r
+## script for looking at vcftools stats output
+## j. rick, for WFSC 496/596 in-class week 5
+
+## load necessary packages
+library(tidyverse)
+
+prefix="AC1_chr1_variants_bcftools"
+
+## load and plot idepth file
+idepth <- read_table(paste0(prefix,'.idepth'))
+
+idepth %>%
+  ggplot() +
+  geom_histogram(aes(x=MEAN_DEPTH))
+
+## load and plot imiss file
+imiss <- read_table(paste0(prefix,'.imiss'))
+
+imiss %>%
+  ggplot() +
+  geom_histogram(aes(x=F_MISS))
+
+## load and plot het file
+ihet <- read_table(paste0(prefix,'.het'))
+
+ihet %>%
+  ggplot(aes(x=`O(HOM)`)) +
+  geom_histogram()
+
+# transform into observed heterozygosity
+ihet %>%
+  mutate(HET_O = 1-(`O(HOM)`/N_SITES)) %>%
+  ggplot(aes(x=HET_O)) +
+  geom_histogram()
+
+# what about inbreeding (F)?
+ihet %>%
+  ggplot(aes(x=F)) +
+  geom_histogram()
+
+## we can combine to look at depth vs missing data
+idepth %>%
+  left_join(imiss,by="INDV") %>%
+  ggplot(aes(x=MEAN_DEPTH,y=F_MISS)) +
+  geom_point()
+
+# who is that weird outlier?
+ihet %>%
+  mutate(HET_O = 1-(`O(HOM)`/N_SITES)) %>%
+  filter(HET_O > 0.3)
+
+## can also combine to look at het vs missing data
+imiss %>%
+  left_join(ihet,by="INDV") %>%
+  mutate(HET_O = 1-(`O(HOM)`/N_SITES)) %>%
+  ggplot(aes(x=F_MISS,y=HET_O)) +
+  geom_point()
+
+## load ldepth file
+ldepth <- read_table(paste0(prefix,'.ldepth.mean'))
+
+ldepth %>% 
+  ggplot() +
+  geom_histogram(aes(x=MEAN_DEPTH))
+
+# histogram not super informative, maybe a plot across position will be better?
+ldepth %>% 
+  ggplot() +
+  geom_point(aes(x=POS,y=MEAN_DEPTH))
+
+summary(ldepth$MEAN_DEPTH)
+
+## load lmiss file
+lmiss <- read_table(paste0(prefix,'.lmiss'))
+
+lmiss %>% 
+  ggplot() +
+  geom_histogram(aes(x=F_MISS))
+
+# maybe a plot across position will be also informative?
+lmiss %>% 
+  ggplot() +
+  geom_point(aes(x=POS,y=F_MISS))
+
+summary(lmiss$F_MISS)
+
+```
 
