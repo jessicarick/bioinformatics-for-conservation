@@ -33,11 +33,11 @@ vcftools --vcf variants.vcf --missing-site --out vcf_stats/variants
 # report per-individual heterozyosity and Fis
 vcftools --vcf variants.vcf --het --out vcf_stats/variants
 ```
-Once we have each of these reports, we can use `R` to summarize and visualize their distributions to inform our further filtering of the data. To do this, we can download the output files (all contained within `vcf_stats/` and use a script such as the following code:
+Once we have each of these reports, we can use `R` to summarize and visualize their distributions to inform our further filtering of the data. To do this, we can download the output files (all contained within `vcf_stats/`) using `scp` on the command line or the GUI interface at [https://ood.hpc.arizona.edu](https://ood.hpc.arizona.edu) and use a script such as the following code:
 
 ```r
 ## script for looking at vcftools stats output
-## j. rick, for WFSC 496/596 in-class week 5
+## WFSC 496/596 in-class week 5
 
 ## load necessary packages
 library(tidyverse)
