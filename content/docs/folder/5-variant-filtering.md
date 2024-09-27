@@ -5,8 +5,6 @@ prev: docs/folder/4-variant-calling
 next: docs/folder/5-variant-filtering
 ---
 
-** Note that this page is not yet complete **
-
 ## Variant Filtering
 Now that we have our raw variants file, we are going to focus on how to filter these variants. While this may seem like a trivial task, it is exceedingly important and can influence the results of your downstream analyses (add links to papers), so should be thought about carefully.
 
