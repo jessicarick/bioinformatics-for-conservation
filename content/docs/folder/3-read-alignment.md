@@ -37,7 +37,11 @@ From here, many downstream applications will require that your `.bam` file is so
 ```sh
 samtools sort --output aln-ind1-bwa.sorted.bam aln-ind1-bwa.bam
 ```
-Once we have our sorted bamfile, then we are ready for the next step of variant calling!
+Once we have our sorted bamfile, then we are ready for the next step of variant calling! Some downstream programs will require our bamfiles to be indexed, so we can go ahead and do that now so we're ready for anything:
+
+```sh
+samtools index aln-ind1-bwa.sorted.bam
+```
 
 ### Aligning paired-end reads
 A "paired-end" or "mate-pair" read consists of pair of mates, called mate 1 and mate 2. Pairs come with a prior expectation about (a) the relative orientation of the mates, and (b) the distance separating them on the original DNA molecule. Exactly what expectations hold for a given dataset depends on the lab procedures used to generate the data. For example, a common lab procedure for producing pairs is Illumina's Paired-end Sequencing Assay, which yields pairs with a relative orientation of FR ("forward, reverse"). This protocol usually yields pairs where the expected genomic distance from end to end is about 200-500 base pairs, and in some cases the reads will overlap in the middle.
