@@ -16,6 +16,7 @@ There are several different measures that are all considered estimates of "genet
 
 To calculate these measures of diversity, we'll be using two different methods: the program [ANGSD](), which requires sorted `bam` files as input, and R, where we can work directly from our filtere `VCF` that we created.
 
+## Genetic diversity using ANGSD
 The following code can be used to generate estimates of genetic diversity from `bam` files using `ANGSD`:
 
 ```{sh}
@@ -55,10 +56,10 @@ angsd
 
 ```
 
-To generate estimates using `R`, we can use the following code:
+## Genetic diversity using R
+To generate estimates using `R`, we can use the following code, which depends heavily on the [dartR package](https://green-striped-gecko.github.io/dartR/). If you do not already have `dartR` installed, then you can install it using `install.packages("dartR")` followed by `gl.install.vanilla.dartR()`. If you run into errors during the installation, there is some helpful additional installation information found at [https://github.com/green-striped-gecko/dartR/wiki/Installation-tutorial#installation](https://github.com/green-striped-gecko/dartR/wiki/Installation-tutorial#installation).
 
 ```{r}
-library(vcfR) 
 library(dartR) 
 library(adegenet) 
 library(tidyverse)
