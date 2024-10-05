@@ -122,3 +122,17 @@ summary(lmiss$F_MISS)
 
 ```
 
+These plots can help to give us an idea of what filters may be necessary, and what thresholds will help us to filter out any concerning sites/individuals. In these data, it's clear that there are some regions of the genome where we have concerningly high read depth (>60), so we'll want to filter out those sites because they're likely to contain misaligned reads (due to repeat regions, paralogs, etc.). In addition, we have some individuals with high amounts of missing data and one individual with high heterozygosity compared to the rest of the individuals. For now, we'll move forward with the following filters for our VCF file:
+* missing data (keep any site with < 80% missing data, filter out those with < 20% of individuals with genotypes)
+* mean read depth (filter out any sites with mean read depth across individuals > 40)
+* genotype read depth (only call genotypes in an individual if site read depth is > 5)
+* keep only biallelic SNPs (minimum allele count 2, maximum allele count 2)
+* remove indels (again, so we only keep SNPs)
+
+We'll use `vcftools` to filter our raw variant file. To do the above, our code will be:
+
+```{sh}
+vcftools --vcf variants.vcf --max-missing 0.2 --max-meanDP 40 --minDP 5 --min-alleles 2 --max-alleles 2 --remove-indels --recode --out variants_filtered
+```
+The `--recode` flag tells `vcftools` that we want it to output the filtered VCF, and then the `--out` flag indicates what we want the prefix of the output file to be (`vcftools` will append a `.recode.vcf` to the end of the name). Once we have our filtered VCF, we’re ready to go for downstream analyses! We can re-run the `vcftools stats` calculations if we want to double-check that our data look better. We can also import the VCF into R to calculate some statistics on the individuals and the sites.
+
