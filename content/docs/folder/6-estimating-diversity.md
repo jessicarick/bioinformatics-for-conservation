@@ -17,10 +17,12 @@ There are several different measures that are all considered estimates of "genet
 To calculate these measures of diversity, we'll be using two different methods: the program [ANGSD](), which requires sorted `bam` files as input, and R, where we can work directly from our filtere `VCF` that we created.
 
 ## Genetic diversity using ANGSD
-The following code can be used to generate estimates of genetic diversity from `bam` files using `ANGSD`:
+The following code can be used to generate estimates of genetic diversity from `bam` files using `ANGSD`. This program is not available as a module on the UA HPC, so we first have to specify where it is installed so that the computer knows where to find it.
 
 ```{sh}
 alias angsd="/xdisk/jrick/programs/angsd/angsd"
+alias realSFS="/xdisk/jrick/programs/angsd/misc/realSFS"
+alias thetaStat="/xdisk/jrick/programs/angsd/misc/thetaStat"
 mkdir angsd_out
 
 # create SAF file for chromosome 1 with 10 individuals (runs relatively quickly)
@@ -42,16 +44,16 @@ angsd
 	-r NC_036858.1 # only working with chromosome 1
 
 # then estimate the SFS from the SAF
-/xdisk/jrick/programs/angsd/misc/realSFS char_bamlist_short.saf.idx > char_bamlist_short.sfs
+realSFS char_bamlist_short.saf.idx > char_bamlist_short.sfs
 
 # now, we use the sfs to estimate diversity statistics for the population
-/xdisk/jrick/programs/angsd/misc/realSFS saf2theta char_bamlist_short.saf.idx -sfs char_bamlist_short.sfs -outname char_bamlist_short
+realSFS saf2theta char_bamlist_short.saf.idx -sfs char_bamlist_short.sfs -outname char_bamlist_short
 
 # and finally calculate the genome-wide summary statistics
-/xdisk/jrick/programs/angsd/misc/thetaStat do_stat char_bamlist_short.thetas.idx 
+thetaStat do_stat char_bamlist_short.thetas.idx 
 
 # in the output file, tW = watterson's theta; tP = pi; Tajima = Tajima's D
-# the first two will need to be divided by the number of sites to get real estimates
+# the first two will need to be divided by the number of sites to get proportional estimates
 # these can also be estimated in windows if that is desired
 
 ```
