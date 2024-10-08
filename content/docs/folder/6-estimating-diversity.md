@@ -19,7 +19,7 @@ To calculate these measures of diversity, we'll be using two different methods: 
 ## Genetic diversity using ANGSD
 The following code can be used to generate estimates of genetic diversity from `bam` files using `ANGSD`. This program is not available as a module on the UA HPC, so we first have to specify where it is installed so that the computer knows where to find it.
 
-```{sh}
+```sh
 alias angsd="/xdisk/jrick/programs/angsd/angsd"
 alias realSFS="/xdisk/jrick/programs/angsd/misc/realSFS"
 alias thetaStat="/xdisk/jrick/programs/angsd/misc/thetaStat"
@@ -61,7 +61,7 @@ thetaStat do_stat char_bamlist_short.thetas.idx
 ## Genetic diversity using R
 To generate estimates using `R`, we can use the following code, which depends heavily on the [dartR package](https://green-striped-gecko.github.io/dartR/). If you do not already have `dartR` installed, then you can install it using `install.packages("dartR")` followed by `gl.install.vanilla.dartR()`. If you run into errors during the installation, there is some helpful additional installation information found at [https://github.com/green-striped-gecko/dartR/wiki/Installation-tutorial#installation](https://github.com/green-striped-gecko/dartR/wiki/Installation-tutorial#installation).
 
-```{r}
+```r
 library(dartR) 
 library(adegenet) 
 library(tidyverse)
