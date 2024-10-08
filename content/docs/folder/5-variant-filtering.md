@@ -2,7 +2,7 @@
 title: 5 - Variant filtering
 type: docs
 prev: docs/folder/4-variant-calling
-next: docs/folder/5-variant-filtering
+next: docs/folder/6-genetic-diversity
 ---
 
 ## Variant Filtering
