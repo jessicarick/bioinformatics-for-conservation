@@ -1,3 +1,10 @@
+---
+title: 7 - Estimating Relatedness, Kinship, and Parentage
+type: docs
+prev: docs/folder/6-estimating-diversity
+next: docs/folder/7-relatedness-kinship-parentage
+---
+
 ## Estimating relatedness, kinship, and parentage
 All three of these tasks are somewhat related, but can be approached in several different ways. Essentially, they all entail quantifying the relationships between individuals in a dataset, and then in the case of kinship and parentage, then binning those relationships into parent-offpring, full sibling, half sibling, etc. according to theory on how related individuals should be for each of these categories. The most recent methods for these sorts of estimation methods use Bayesian or maximum likelihood inference to quantify our uncertainty in a given estimate of kinship or a given relationship between individuals. 
 
