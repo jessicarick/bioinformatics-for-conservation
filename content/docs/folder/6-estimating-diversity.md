@@ -33,19 +33,19 @@ mkdir angsd_out
 # all comments will need to be removed and flags will all have to be
 # on the same line for code to work
 angsd 
-	-b /xdisk/jrick/consbioinf/shared_data/char_bamlist_short.txt # list of bamfiles to include
-	-ref /xdisk/jrick/consbioinf/shared_data/char_reference/Salvelinus_spp_genome.fasta  # reference genome
-	-anc /xdisk/jrick/consbioinf/shared_data/char_reference/Salvelinus_spp_genome.fasta  # reference genome
-	-out angsd_out/char_bamlist_short # output name
-	-uniqueOnly 1 # keep only reads with 1 best mapping location
-	-minMapQ 20 # minimum mapping quality of 20
-	-minInd 2 # sites have to have at least 2 individuals with genotype calls
-	-setMinDepth 10 # keep only if total read depth across individuals is > 10
-	-setMaxDepth 1000 # keep only if total read depth across individuals is < 1000
+	-b /xdisk/jrick/consbioinf/shared_data/char_bamlist_short.txt \ # list of bamfiles to include
+	-ref /xdisk/jrick/consbioinf/shared_data/char_reference/Salvelinus_spp_genome.fasta  \ # reference genome
+	-anc /xdisk/jrick/consbioinf/shared_data/char_reference/Salvelinus_spp_genome.fasta  \ # reference genome
+	-out angsd_out/char_bamlist_short \ # output name
+	-uniqueOnly 1 \ # keep only reads with 1 best mapping location
+	-minMapQ 20 \ # minimum mapping quality of 20
+	-minInd 2 \ # sites have to have at least 2 individuals with genotype calls
+	-setMinDepth 10 \ # keep only if total read depth across individuals is > 10
+	-setMaxDepth 1000 \ # keep only if total read depth across individuals is < 1000
 	-doCounts 1 
-	-GL 1 # use samtools model for GLs 
-	-doSaf 1 # Calculate the Site allele frequency likelihood based on individual genotype likelihoods assuming HWE
-	-r NC_036858.1 # only working with chromosome 1
+	-GL 1 \ # use samtools model for GLs 
+	-doSaf 1 \ # Calculate the Site allele frequency likelihood based on individual genotype likelihoods assuming HWE
+	-r NC_036858.1  # only working with chromosome 1
 
 # then estimate the SFS from the SAF
 realSFS char_bamlist_short.saf.idx > char_bamlist_short.sfs
