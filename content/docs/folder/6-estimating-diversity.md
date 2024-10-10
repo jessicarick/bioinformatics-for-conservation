@@ -32,7 +32,7 @@ mkdir angsd_out
 # create SAF file for chromosome 1 with 10 individuals (runs relatively quickly)
 # all comments will need to be removed and flags will all have to be
 # on the same line for code to work
-angsd 
+angsd \
 	-b /xdisk/jrick/consbioinf/shared_data/char_bamlist_short.txt \ # list of bamfiles to include
 	-ref /xdisk/jrick/consbioinf/shared_data/char_reference/Salvelinus_spp_genome.fasta  \ # reference genome
 	-anc /xdisk/jrick/consbioinf/shared_data/char_reference/Salvelinus_spp_genome.fasta  \ # reference genome
