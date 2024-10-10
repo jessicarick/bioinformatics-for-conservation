@@ -25,5 +25,22 @@ bgzip -c AC1_chr1_variants_filtered.recode.vcf > AC1_chr1_variants_filtered.vcf.
 ngsRelate -h AC1_chr1_variants_filtered.vcf.gz -z ind_list_AC1.txt -O AC1_chr1_variants_filtered.rel
 ```
 
-From the output, you'll notice that ngsRelate has a default minor allele frequency filter of 0.05. We'll leave this be for now, but could adjust that number in the future. The output from ngsRelate has individual IDs in the first two columns, and then for each pair of individuals has a number of different calculated values. You can read about the output format on the ngsRelate GitHub page here: [https://github.com/ANGSD/NgsRelate?tab=readme-ov-file#output-format](https://github.com/ANGSD/NgsRelate?tab=readme-ov-file#output-format). Two of the measures that we may be interested in are called `rab` (column 13; pairwise relatedness from [Hedrick et al. 2015](https://academic.oup.com/jhered/article/106/1/20/2961876)) and `KING` (column 31; kinship from [Waples et al. 2018](https://onlinelibrary.wiley.com/doi/10.1111/mec.14954)).
+From the output, you'll notice that ngsRelate has a default minor allele frequency filter of 0.05. We'll leave this be for now, but could adjust that number in the future. The output from ngsRelate has individual IDs in the first two columns, and then for each pair of individuals has a number of different calculated values. You can read about the output format on the ngsRelate GitHub page here: [https://github.com/ANGSD/NgsRelate?tab=readme-ov-file#output-format](https://github.com/ANGSD/NgsRelate?tab=readme-ov-file#output-format). Two of the measures that we may be interested in are called `rab` (column 13; pairwise relatedness from [Hedrick et al. 2015](https://academic.oup.com/jhered/article/106/1/20/2961876)) and `KING` (column 31; kinship from [Waples et al. 2018](https://onlinelibrary.wiley.com/doi/10.1111/mec.14954)). To make sense of these estimates, we'll probably want to pull them into R and plot their distributions, and then we can look closer at specific individuals that may be more related than expected. Generally, kinship values of 0.5 indicate first-degree relatives (full siblings or parent-offspring relationships), while a kinship value of 1.0 indicates self or monozygotic twins.
 
+```r
+library(tidyverse)
+
+relatedness <- read_table("AC1_chr1_variants_filtered.rel")
+
+# distribution of kinship coefficients
+relatedness %>%
+  ggplot(aes(x=KING)) +
+  geom_histogram()
+
+# relationship between rab relatedness and KING coefficient
+relatedness %>%
+  ggplot(aes(x=rab,y=KING)) +
+  geom_point()
+```
+
+### Parentage analysis 
