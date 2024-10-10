@@ -20,7 +20,8 @@ To calculate these measures of diversity, we'll be using two different methods: 
 The following code can be used to generate estimates of genetic diversity from `bam` files using `ANGSD`. This program is not available as a module on the UA HPC, so we first have to specify where it is installed so that the computer knows where to find it. The method in ANGSD first requires estimating the site allele frequency likelihood (SAF; an estimate of the allele frequencies within the population), followed by an estimation of the site frequency spectrum (SFS), which is then used for estimating overall genetic diversity.
 
 ```sh
-# these programs aren't available as modules, so we need to indicate where to find them
+# these programs aren't available as modules,
+# so we need to indicate where to find them
 alias angsd="/xdisk/jrick/programs/angsd/angsd"
 alias realSFS="/xdisk/jrick/programs/angsd/misc/realSFS"
 alias thetaStat="/xdisk/jrick/programs/angsd/misc/thetaStat"
@@ -29,7 +30,8 @@ alias thetaStat="/xdisk/jrick/programs/angsd/misc/thetaStat"
 mkdir angsd_out
 
 # create SAF file for chromosome 1 with 10 individuals (runs relatively quickly)
-# all comments will need to be removed and flags will all have to be on the same line for code to work
+# all comments will need to be removed and flags will all have to be
+# on the same line for code to work
 angsd 
 	-b /xdisk/jrick/consbioinf/shared_data/char_bamlist_short.txt # list of bamfiles to include
 	-ref /xdisk/jrick/consbioinf/shared_data/char_reference/Salvelinus_spp_genome.fasta  # reference genome
