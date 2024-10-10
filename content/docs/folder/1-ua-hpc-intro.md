@@ -27,6 +27,7 @@ Now that you’re logged into the UA HPC and on a login node (either `junonia` o
 * To check permissions, `ls -l `
 * To look preview the contents of a file, we can use `less filename`, where `filename` is the file we want to look at
 * To copy files, we use `cp`
+* To request an interactive session, `interactive -a consbioinf -t 2:00:00`, where the `-t` flag indicates how long you want your interactive session to be good for (e.g., `2:00:00` indicates 2 hours, 0 minutes, 0 seconds)
 
 ## Modules!
 * `module list`
