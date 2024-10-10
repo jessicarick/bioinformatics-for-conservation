@@ -14,26 +14,28 @@ There are several different measures that are all considered estimates of "genet
 * **(Tajima's D)**: not an estimate of diversity *per se*, but rather the ratio of $\theta~W$ and $\pi$ in a population; under neutral expectations for a population at equilibrium, we expect the two to be equal to one another, and deviations from this expectation provide evidence for an excess of rare alleles (when negative) or a deficit of rare alleles (when positive) compared to expectations
 * **Runs of homozygosity**: a measure of the length and frequency of regions of the genome that are autozygous (i.e., identical by descent from a common ancestor), whcih can be used to quantify levels of inbreeding and the genetic relatedness between individuals
 
-To calculate these measures of diversity, we'll be using two different methods: the program [ANGSD](), which requires sorted `bam` files as input, and R, where we can work directly from our filtere `VCF` that we created.
+To calculate these measures of diversity, we'll be using two different methods: the program [ANGSD](https://www.popgen.dk/angsd/index.php/ANGSD#Overview), which requires sorted `bam` files as input, and R, where we can work directly from our filtere `VCF` that we created.
 
 ## Genetic diversity using ANGSD
-The following code can be used to generate estimates of genetic diversity from `bam` files using `ANGSD`. This program is not available as a module on the UA HPC, so we first have to specify where it is installed so that the computer knows where to find it.
+The following code can be used to generate estimates of genetic diversity from `bam` files using `ANGSD`. This program is not available as a module on the UA HPC, so we first have to specify where it is installed so that the computer knows where to find it. The method in ANGSD first requires estimating the site allele frequency likelihood (SAF; an estimate of the allele frequencies within the population), followed by an estimation of the site frequency spectrum (SFS), which is then used for estimating overall genetic diversity.
 
 ```sh
+# these programs aren't available as modules, so we need to indicate where to find them
 alias angsd="/xdisk/jrick/programs/angsd/angsd"
 alias realSFS="/xdisk/jrick/programs/angsd/misc/realSFS"
 alias thetaStat="/xdisk/jrick/programs/angsd/misc/thetaStat"
+
+# create an output directory
 mkdir angsd_out
 
 # create SAF file for chromosome 1 with 10 individuals (runs relatively quickly)
 # all comments will need to be removed and flags will all have to be on the same line for code to work
 angsd 
-	-b /xdisk/jrick/consbioinf/shared_data/char_bamlist_short.txt 
-	-ref /xdisk/jrick/consbioinf/shared_data/char_reference/Salvelinus_spp_genome.fasta 
-	-anc /xdisk/jrick/consbioinf/shared_data/char_reference/Salvelinus_spp_genome.fasta 
-	-out angsd_out/char_bamlist_short 
-	-uniqueOnly 1 
-	-remove_bads 1 
+	-b /xdisk/jrick/consbioinf/shared_data/char_bamlist_short.txt # list of bamfiles to include
+	-ref /xdisk/jrick/consbioinf/shared_data/char_reference/Salvelinus_spp_genome.fasta  # reference genome
+	-anc /xdisk/jrick/consbioinf/shared_data/char_reference/Salvelinus_spp_genome.fasta  # reference genome
+	-out angsd_out/char_bamlist_short # output name
+	-uniqueOnly 1 # keep only reads with 1 best mapping location
 	-minMapQ 20 # minimum mapping quality of 20
 	-minInd 2 # sites have to have at least 2 individuals with genotype calls
 	-setMinDepth 10 # keep only if total read depth across individuals is > 10
@@ -80,7 +82,7 @@ nLoc(char_gl)
 gl.report.callrate(char_gl,method="loc")
 
 # calculate missing data per individual -- do we need to remove anyone?
-char_miss_ind <- 1 - rowSums(is.na(as.matrix(char_gl)))/nLoc(char_gl)
+char_miss_ind <- rowSums(is.na(as.matrix(char_gl)))/nLoc(char_gl)
 
 # calculate heterozygosity per individual
 char_het <- gl.report.heterozygosity(char_gl, method="ind")
@@ -98,7 +100,7 @@ char_gl_filt <- gl.filter.callrate(char_gl, method="ind",
 
 # now, recalculate missing data and heterozygosity
 # calculate missing data per individual -- do we need to remove anyone?
-char_miss_ind_filt <- 1 - rowSums(is.na(as.matrix(char_gl_filt)))/nLoc(char_gl_filt)
+char_miss_ind_filt <- rowSums(is.na(as.matrix(char_gl_filt)))/nLoc(char_gl_filt)
 char_het_filt <- gl.report.heterozygosity(char_gl_filt, method="ind")
 
 char_het_filt %>%
