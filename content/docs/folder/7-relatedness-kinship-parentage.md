@@ -44,3 +44,4 @@ relatedness %>%
 ```
 
 ### Parentage analysis 
+Parentage analysis is a little bit trickier than just estimating relatedness or kinship among individuals. However, it can be a really important step in some conservation-related genomic analyses. Again, there are several programs and R packages that can be used to infer parentage; some common ones include [the Sequoia R package](https://jiscah.github.io/articles/vignette_main/book/index.html), [COLONY](https://www.zsl.org/about-zsl/resources/software/colony), [CERVUS](http://www.fieldgenetics.com/pages/aboutCervus_Overview.jsp) (more commonly used for microsatellite data), and the [CKMRsim R package](https://eriqande.github.io/CKMRsim/).
