@@ -19,7 +19,7 @@ To infer HWE for each site using VCFtools with your filtered VCF, you can use th
 vcftools --vcf variants_filtered.vcf --hardy --out vcf_stats/variants_filtered
 ```
 
-This will output a p-value for each site from a Hardy-Weinberg Equilibrium test, as well as the observed numbers of homozygotes and heterozygotes and the corresponding expected numbers under HWE. These data can then be pulled into R for interpretation, using code such as that below:
+This will output a p-value for each site from a Hardy-Weinberg Equilibrium Chi-square test, as well as the observed numbers of homozygotes and heterozygotes and the corresponding expected numbers under HWE. These data can then be pulled into R for interpretation, using code such as that below:
 
 ```r
 library(tidyverse)
@@ -37,7 +37,7 @@ summary(hwe)
 
 ### Using dartR
 
-To infer HWE for each site in R, we can use the `dartR` package with our filtered VCF file. If you have already loaded your VCF for performing other analyses, then you will not need to re-load it specifically for this step.
+To infer HWE for each site in R, we can use the `dartR` package with our filtered VCF file. If you have already loaded your VCF for performing other analyses, then you will not need to re-load it specifically for this step. You may, however, need to install the `HardyWeinberg` package if it hasn't already been installed with your `dartR` installation (e.g., `install.packages("HardyWeinberg")`.
 
 ```r
 library(tidyverse)
