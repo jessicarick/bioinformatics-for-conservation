@@ -40,24 +40,22 @@ Once we have each of these reports, we can use `R` to summarize and visualize th
 ## load necessary packages
 library(tidyverse)
 
-prefix="AC1_chr1_variants_bcftools"
-
 ## load and plot idepth file
-idepth <- read_table(paste0(prefix,'.idepth'))
+idepth <- read_table('AC1_chr1_variants_bcftools.idepth')
 
 idepth %>%
   ggplot() +
   geom_histogram(aes(x=MEAN_DEPTH))
 
 ## load and plot imiss file
-imiss <- read_table(paste0(prefix,'.imiss'))
+imiss <- read_table('AC1_chr1_variants_bcftools.imiss')
 
 imiss %>%
   ggplot() +
   geom_histogram(aes(x=F_MISS))
 
 ## load and plot het file
-ihet <- read_table(paste0(prefix,'.het'))
+ihet <- read_table('AC1_chr1_variants_bcftools.het')
 
 ihet %>%
   ggplot(aes(x=`O(HOM)`)) +
@@ -93,7 +91,7 @@ imiss %>%
   geom_point()
 
 ## load ldepth file
-ldepth <- read_table(paste0(prefix,'.ldepth.mean'))
+ldepth <- read_table('AC1_chr1_variants_bcftools.ldepth.mean')
 
 ldepth %>% 
   ggplot() +
@@ -107,7 +105,7 @@ ldepth %>%
 summary(ldepth$MEAN_DEPTH)
 
 ## load lmiss file
-lmiss <- read_table(paste0(prefix,'.lmiss'))
+lmiss <- read_table('AC1_chr1_variants_bcftools.lmiss')
 
 lmiss %>% 
   ggplot() +
@@ -132,7 +130,15 @@ These plots can help to give us an idea of what filters may be necessary, and wh
 We'll use `vcftools` to filter our raw variant file. To do the above, our code will be:
 
 ```sh
-vcftools --vcf variants.vcf --max-missing 0.2 --max-meanDP 40 --minDP 5 --min-alleles 2 --max-alleles 2 --remove-indels --recode --out variants_filtered
+vcftools --vcf variants.vcf \
+  --max-missing 0.2 \ # allowing up to 80% missing data
+  --max-meanDP 40 \ # removing sites with mean read depth across individuals > 40
+  --minDP 5 \ # only calling genotypes when there are >5 reads
+  --min-alleles 2 \ 
+  --max-alleles 2 \
+  --remove-indels \
+  --recode \
+  --out variants_filtered # output file prefix
 ```
 The `--recode` flag tells `vcftools` that we want it to output the filtered VCF, and then the `--out` flag indicates what we want the prefix of the output file to be (`vcftools` will append a `.recode.vcf` to the end of the name). Once we have our filtered VCF, we’re ready to go for downstream analyses! We can re-run the `vcftools stats` calculations if we want to double-check that our data look better. We can also import the VCF into R to calculate some statistics on the individuals and the sites.
 
