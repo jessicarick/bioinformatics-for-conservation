@@ -29,7 +29,7 @@ hwe <- read_table("variants_filtered.hwe")
 
 hwe %>%
   ggplot() +
-  geom_histogram(aes(x=P_VALUE))
+  geom_histogram(aes(x=P_HWE))
 
 ## summary of the hwe statistics
 summary(hwe)
