@@ -58,11 +58,13 @@ hwe %>%
   geom_histogram(aes(x=as.numeric(Prob)))
 
 # plot heterozyosity vs hwe p-value
-char_hwe %>%
+hwe %>%
   ggplot() +
   geom_point(aes(x=as.numeric(Het), y=as.numeric(Prob)))
 
 ```
+
+The output contained within our `hwe` data frame here gives us the number of observed homozygotes (for each allele) and heterozyotes for each SNP, the total number of individuals with a genotype for that SNP (`N`), the p-value from our HWE Chi-square test (`Prob`), and an indication of the significance based on a given threshold (p < 0.05 by default) and the significance after [Bonferroni correction](https://en.wikipedia.org/wiki/Bonferroni_correction).
 
 ## Plotting a PCA to visualize our data
 
