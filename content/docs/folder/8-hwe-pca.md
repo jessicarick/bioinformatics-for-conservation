@@ -1,5 +1,5 @@
 ---
-title: 8 - Estimating HWE and PCAs
+title: 08 - Estimating HWE and PCAs
 type: docs
 prev: docs/folder/7-relatedness-kinship-parentage
 next: docs/folder/9-estimating-ne
