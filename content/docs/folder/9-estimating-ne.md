@@ -2,7 +2,7 @@
 title: 9 - Estimating Effective Population Size
 type: docs
 prev: docs/folder/8-hwe-pca
-next: docs/folder/9-estimating-ne
+next: docs/folder/10-population-structure
 ---
 
 ## Effective population size
