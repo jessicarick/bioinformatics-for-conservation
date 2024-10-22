@@ -1,5 +1,5 @@
 ---
-title: 7 - Estimating Relatedness, Kinship, and Parentage
+title: 07 - Estimating Relatedness, Kinship, and Parentage
 type: docs
 prev: docs/folder/6-estimating-diversity
 next: docs/folder/8-hwe-pca
