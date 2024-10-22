@@ -2,7 +2,7 @@
 title: 8 - Estimating HWE and PCAs
 type: docs
 prev: docs/folder/7-relatedness-kinship-parentage
-next: docs/folder/8-hwe-pca
+next: docs/folder/9-estimating-ne
 ---
 
 This page is to provide some additional code that we didn't get to in class, which will be beneficial for completing Project 1.
