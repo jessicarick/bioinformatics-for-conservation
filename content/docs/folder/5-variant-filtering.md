@@ -1,5 +1,5 @@
 ---
-title: 5 - Variant filtering
+title: 05 - Variant filtering
 type: docs
 prev: docs/folder/4-variant-calling
 next: docs/folder/6-genetic-diversity
