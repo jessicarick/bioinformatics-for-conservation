@@ -1,5 +1,5 @@
 ---
-title: 4 - Variant calling
+title: 04 - Variant calling
 type: docs
 prev: docs/folder/3-read-alignment
 next: docs/folder/5-variant-filtering
