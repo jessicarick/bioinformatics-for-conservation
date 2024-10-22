@@ -1,5 +1,5 @@
 ---
-title: 6 - Estimating Genetic Diversity
+title: 06 - Estimating Genetic Diversity
 type: docs
 prev: docs/folder/5-variant-filtering
 next: docs/folder/7-relatedness-kinship-parentage
