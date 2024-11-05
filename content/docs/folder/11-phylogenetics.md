@@ -28,4 +28,44 @@ module load iqtree2
 
 iqtree2 -s gila_variants_filtered_outgroup.phy -st DNA --prefix gila_tree
 ```
+There will be a lot of output to the screen about what is occurring as IQtree runs, which will also be saved in some of the output files. If we wanted to additionally run 1000 bootstraps to quantify our confidence in the tree, we can add a `-B 1000` flag to the `iqtree2` code. For our purposes in-class, we won't be doing this because the bootstrap analyses take a while to run.
 
+From here, we'll want to download the `.treefile` output file from IQtree (this is our best estimate for the phylogeny for these taxa), as well as the metadata file (`gila_selected_inds.txt` from the `week10_data/` directory). Just like previously, we'll want to download these files to the `data/` directory in our R project, using either `scp` or the interactive OOD online interface. Once we have these files downloaded, we can use them to visualize our phylogeny in R. To do so, we'll be using three new-to-us packages, `ape`, `phytools`, and `ggtree`; these may take a bit of time to install if you do not already have them.
+
+```r
+#install.packages("ape")
+#install.packages("phytools")
+#install.packages("ggtree")
+library(ape)
+library(phytools)
+library(ggtree)
+library(tidyverse)
+
+# load sequence metadata
+ind_dat <- read_csv("data/gila_selected_inds.txt") %>%
+  select(Organism, Ecotype, Run, `Sample Name`) %>%
+  mutate(Pop = gsub("[0-9]+([A-Z]+)[0-9]+","\\1",`Sample Name`))
+
+# load tree
+tre <- read.tree("data/gila_tree.treefile")
+
+# root tree using the outgroup
+tre <- root(tre,"SRR15431420",
+            resolve.root=TRUE)
+
+# plot simple tree
+plot.phylo(tre, show.tip.label=FALSE)
+
+# plot using ggtree
+ggtree(tre)
+
+# match metadata to tree
+tre_metadat <- tibble(bam=tre$tip.label) %>%
+  mutate(ind=bam) %>%
+  left_join(ind_dat, by=c("ind"="Run")) 
+
+p <- ggtree(tre, layout="equal_angle") %<+% tre_metadat
+p + 
+  geom_tippoint(aes(color=Organism)) +
+  geom_tiplab(aes(label=Pop), color="black")
+```
