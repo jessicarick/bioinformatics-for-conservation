@@ -2,7 +2,7 @@
 title: 10 - Inferring Population Structure
 type: docs
 prev: docs/folder/9-estimating-ne
-next: docs/folder/10-population-structure
+next: docs/folder/11-phylogenetics
 ---
 
 ## Inferring population structure or genetic clusters
