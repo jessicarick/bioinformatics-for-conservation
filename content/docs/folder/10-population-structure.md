@@ -6,8 +6,6 @@ next: docs/folder/11-phylogenetics
 ---
 
 ## Inferring population structure or genetic clusters
-**Please note that this page is a work in progress
-
 Often, one of the first things that we need to assess about our data is whether the samples that we have sequenced comprise one panmictic population, or whether there is population structure present that we need to account for in our analyses. We may be interested in learning about population structure itself, or we may simply need to make sure that we're not violating an assumption of our analytical models by having samples that do not come from one cohesive population. Either way, we'll want to do similar analyses (although in the former case, we likely will want to do additional analyses based off of our findings).
 
 ### Visualizing structure: principal component analysis
