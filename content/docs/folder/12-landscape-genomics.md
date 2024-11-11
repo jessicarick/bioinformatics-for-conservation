@@ -17,7 +17,7 @@ For our in-class purposes, we are going to be performing a [latent factor mixed 
 
 In addition to our genomic data, we'll also need data for whatever environmental/landscape variable we're interested in. For today, we'll be looking for SNP associations with precipitation, and so we'll be using the [WorldClim](https://www.worldclim.org/data/index.html) dataset for Annual Precipitation (part of the [BioClim](https://www.worldclim.org/data/bioclim.html) dataset). These data are also available to you in the `week11_data/` directory, in the file named `wc2.1_10m_bio_12.tif`.
 
-In class, we used the following R code (note that I will add more explanations of this code later):
+In class, we used the following R code (note that I will add more explanations of this code later). Note that this code has been updated to no longer use the deprecated `rgdal` and `raster` packages, but instead now uses `terra` and `sp`!
 
 ```r
 # lfmm analyses using LEA
@@ -25,14 +25,14 @@ In class, we used the following R code (note that I will add more explanations o
 
 #BiocManager::install("LEA")
 #BiocManager::install("qvalue")
-#install.packages("raster") # also requires 'sp' package
-#BiocManager::install("rgdal")
+#install.packages("sp") 
+#install.packages("terra")
 
 library(tidyverse)
 library(LEA)
 library(qvalue)
-library(raster)
-library(rgdal)
+library(sp)
+library(terra)
 
 ### GENETIC DATA
 # import .lfmm file
@@ -70,13 +70,14 @@ sample.coord <- sample.coord %>%
 crs.wgs <- "+proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0"  
 sample.coord.sp <- SpatialPointsDataFrame(sample.coord[,c('Longitude','Latitude')], 
                                           proj4string=CRS(crs.wgs), data=sample.coord)
+sample.coord.sv <- vect(sample.coord.sp)
 
 # import climate data (from WorldClim)
 # here, we're using the bioClim variable 12 (annual precipitation)
-clim.layer <- stack("data/wc2.1_10m_bio_12.tif")
+clim.layer <- rast("data/wc2.1_10m_bio_12.tif")
 
 #Extract the climate data for each point (projection of climate layer and coordinates must match)
-clim.points <- extract(clim.layer, sample.coord.sp) 
+clim.points <- extract(clim.layer, sample.coord.sv) 
 
 #Combine the sample coordinates with the climate data points and save for use with GF tomorrow
 clim.points <- cbind(sample.coord, clim.points)  
@@ -85,7 +86,7 @@ write.table(clim.points, "data/clim.points",
 clim.points 
 
 #Save climate data without sample names, latitude, longitude, or column names for LFMM
-clim.env <- clim.points$layer
+clim.env <- clim.points$wc2.1_10m_bio_12
 colnames(clim.env) <- NULL
 clim.env
 write.table(clim.env, "data/clim.env", 
@@ -111,7 +112,7 @@ geno_lfmm <- lfmm("data/hannus.lfmm",
 geno_lfmm_z <- z.scores(geno_lfmm, K = 2, d = 1) # here, K needs to match your chosen K above
 geno_lfmm_z <- apply(geno_lfmm_z, 1, median)
 
-# next, we have to convert z-scores into lambda 
+# next, we have to use z-scores to calculate lambda 
 # ("genomic inflation factor")
 geno_lfmm_lambda <- median(geno_lfmm_z^2)/qchisq(0.5, df = 1)
 geno_lfmm_lambda
@@ -122,6 +123,8 @@ geno_lfmm_p_adj <- pchisq(geno_lfmm_z^2/geno_lfmm_lambda,
 
 # finally, correct p-values for multiple testing
 geno_lfmm_q_final <- qvalue(geno_lfmm_p_adj)$qvalues
+
+# how many are outliers at p < 0.05?
 sum(geno_lfmm_q_final < 0.05)
 
 # manhattan plot of q values!
