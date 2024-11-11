@@ -135,3 +135,5 @@ plot(-log10(geno_lfmm_q_final),
 abline(h=-log10(0.05))
 abline(h=-log10(0.005), lty=3)
 ```
+This should give you a Manhattan plot that looks like the following, where each dot represents one SNP in our dataset, ordered by their position in the genome, and dots with larger y-values are ones that have a stronger correlation with our precipitation data! The solid line is our p < 0.05 significance threshold and the dotted line shows where p < 0.005.
+
