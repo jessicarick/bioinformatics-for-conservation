@@ -68,4 +68,11 @@ p <- ggtree(tre, layout="equal_angle") %<+% tre_metadat
 p + 
   geom_tippoint(aes(color=Organism)) +
   geom_tiplab(aes(label=Pop), color="black")
+
+# what if we want to remove the outgroup from the tree?
+tree_noOutgroup <- drop.tip(tre,"SRR15431420")
+p2 <- ggtree(tree_noOutgroup, layout="equal_angle") %<+% tre_metadat
+p2 + 
+  geom_tippoint(aes(color=Organism)) +
+  geom_tiplab(aes(label=Pop), color="black")
 ```
