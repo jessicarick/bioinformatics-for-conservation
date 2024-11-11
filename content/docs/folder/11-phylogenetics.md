@@ -8,8 +8,8 @@ next: docs/folder/12-landscape-genomics
 ## Building phylogenies
 Phylogenies represent a hypothesis about the evolutionary history of a group of organisms, based on the data that we have on hand. These data can be morphological or genetic/genomic, and here we'll be discussing genomic-based phylogenetic reconstruction methods. There is a lot of important jargon related to phylogenies, which we discussed in class. To review this material, please watch the Zoom recording from Week 11; I am also including a picture of the white board information below:
 
-![alt text](/content/img/whiteboard_phylogen_basics.jpeg){: width="50%"}
-![alt text](/content/img/whiteboard_building_phylogenies.jpeg){: width="50%"}
+![alt text](/content/img/whiteboard_phylogen_basics.jpeg | width=50%)
+![alt text](/content/img/whiteboard_building_phylogenies.jpeg)
 
 As with many of the other topics we've covered, there are many many options of ways to go about phylogenetic reconstruction. For better coverage of these, I'll refer you to a couple of nice review articles: X, X, and X. For most phylogenetic methods, we'll want to filter our variants more stringently than for other analyses, because the sites that will give us the most useful information for tree construction will be the sites that (1) have data for the majority of our taxa, and (2) have minor alleles that are shared by two or more individuals/taxa in our dataset. For the data we'll be working with here, I've filtered sites to only keep those with a minor allele frequency > 0.05, as well as only keeping sites with 10% or less missing data (i.e., `--max-missing 0.9`). 
 
