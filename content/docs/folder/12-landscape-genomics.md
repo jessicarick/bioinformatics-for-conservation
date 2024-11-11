@@ -7,7 +7,9 @@ next: docs/folder/12-landscape-genomics
 
 ## Landscape genetics and landscape genomics
 Generally, landscape genetics/genomics combines environmental data with genetic data to learn something about the organism that we're interested in. This kind of research combines tools from population genetics and landscape ecology, and has two different general flavors:
+
 (1) **Connectivity analyses** (generally fall under "landscape genetics"), where we're interested in the influence of environmental features on the genetic structure or gene flow between populations. In these analyses, the goal is to identify landscape features that enhance or restrict gene flow using what we call resistance surfaces. In these, each landscape variable is assigned a resistivity (i.e., how resistant we think it is to gene flow in the given population) and then these resistance surfaces are used to calculate effective distances between individuals (or populations). These "landscape distances" are then compared to genetic distances in a formal modeling framework to determine the best fit to our genetic data (high correlation between landscape distance and genetic distance for a given landscape variable or set of variables = better fit).
+
 (2) **Genotype-environment associations** or outlier tests (generally fall under "landscape genomics"), where we're interested in identifying the environmental factors that have shaped present-day adaptive variation and the genetic variants that drive local adaptation. These are the type of analyses that the [Rellstab et al. (2015)](https://doi.org/0.1111/mec.13322) paper focuses on, and that we'll focus on as well for the coding exercises in this class. In these analyses, we're interested in looking for specific loci under natural selection in specific environments, and associating those with specific environmental variables.
 
 ## Genome scans and outlier analyses
