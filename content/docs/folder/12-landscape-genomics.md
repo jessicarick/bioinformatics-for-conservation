@@ -15,6 +15,8 @@ There are many different flavors of genome scans/outlier analyses/genotype-envir
 
 For our in-class purposes, we are going to be performing a [latent factor mixed model](https://doi.org/10.1093/molbev/mst063) analysis on a publicly-available dataset of sunflower (*Heliantus annus*) genotypes that were generated in XX (NCBI SRA Project XX). To perform the LFMM analysis, we'll be using the R package `LEA`. The data need to be in the `012` format, where 0=homozygous for the dominant allele, 1=heterozygous, and 2=homozygous for the recessive allele. We can convert a normal VCF into this format using VCFtools (e.g., `vcftools --vcf variants_filtered.vcf --012 --out variants_filtered`). Missing data also need to be coded as a `9`. I've already converted the genomic data into the appropriate format, and the ready-to-go data (named `hannus.freebayes.80.1.lfmm`) can be found in the `week11_data/` directory within our `shared_data/` folder on the UA HPC. There are also associated metadata available in the `hannus_selected_inds_metadat.csv` file within the same directory.
 
+In addition to our genomic data, we'll also need data for whatever environmental/landscape variable we're interested in. For today, we'll be looking for SNP associations with precipitation, and so we'll be using the [WorldClim](https://www.worldclim.org/data/index.html) dataset for Annual Precipitation (part of the [BioClim](https://www.worldclim.org/data/bioclim.html) dataset). These data are also available to you in the `week11_data/` directory, in the file named `wc2.1_10m_bio_12.tif`.
+
 In class, we used the following R code (note that I will add more explanations of this code later):
 
 ```r
