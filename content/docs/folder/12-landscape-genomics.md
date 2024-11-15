@@ -2,7 +2,7 @@
 title: 12 - Landscape genomics
 type: docs
 prev: docs/folder/11-phylogenetics
-next: docs/folder/12-landscape-genomics
+next: docs/folder/13-hybridization
 ---
 
 ## Landscape genetics and landscape genomics
