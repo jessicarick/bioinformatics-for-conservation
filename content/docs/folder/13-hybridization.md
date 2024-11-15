@@ -9,7 +9,7 @@ next: docs/folder/13-hybridization
 ( overview here TBD )
 
 ## Running entropy
-We'll be using the program [entropy]() to investigate the presence and identity of hybrids in the dataset from [Rosenthal et al. (2024)](https://doi.org/10.1002/ece3.11706), which sampled walleye (*Sander vitreus*) and sauger (*Sander candadensis*) from water bodies across Wyoming. For the purposes of our in-class exercises, I have already converted a VCF of these data (containing genotype likelihoods) to the input file format for entropy, which is a `.mpgl` file. This file is available in the `/xdisk/jrick/consbioinf/shared_data/week12_data/` directory and is named `entropy_in_sarwae_miss0.75_maf0.05_subsamp.mpgl`. This directory also contains a metadata file (which we'll be using for plotting the results in R), the script for plotting entropy results in R, and a file with starting q-value estimates `ldak_sarwae_2all.txt`, which is produced during the conversion of the VCF to mpgl format and makes the MCMC estimation process more efficient.
+We'll be using the program [entropy](https://bitbucket.org/buerklelab/mixedploidy-entropy/src/master/) to investigate the presence and identity of hybrids in the dataset from [Rosenthal et al. (2024)](https://doi.org/10.1002/ece3.11706), which sampled walleye (*Sander vitreus*) and sauger (*Sander candadensis*) from water bodies across Wyoming. For the purposes of our in-class exercises, I have already converted a VCF of these data (containing genotype likelihoods) to the input file format for entropy, which is a `.mpgl` file. This file is available in the `/xdisk/jrick/consbioinf/shared_data/week12_data/` directory and is named `entropy_in_sarwae_miss0.75_maf0.05_subsamp.mpgl`. This directory also contains a metadata file (which we'll be using for plotting the results in R), the script for plotting entropy results in R, and a file with starting q-value estimates `ldak_sarwae_2all.txt`, which is produced during the conversion of the VCF to mpgl format and makes the MCMC estimation process more efficient.
 
 ```sh
 ### FORMATTING INPUT
@@ -37,8 +37,8 @@ Rscript /xdisk/jrick/programs/entropy/auxfiles/inputdataformat.R sarwae_miss0.75
 	-o entropy_out_sarwae.hdf5 # output file name
 
 ## post-process the results into text files
-sarwae_miss0.75_maf0.05_subsampprograms/entropy/estpost.entropy -p q -s 0 entropy_out_sarwae.hdf5 -o entropy_out_sarwae_k2_q.txt
-sarwae_miss0.75_maf0.05_subsampprograms/entropy/estpost.entropy -p Q -s 0 entropy_out_sarwae.hdf5 -o entropy_out_sarwae_k2_Q12.txt
+/xdisk/jrick/programs/entropy/estpost.entropy -p q -s 0 entropy_out_sarwae.hdf5 -o entropy_out_sarwae_k2_q.txt
+/xdisk/jrick/programs/entropy/estpost.entropy -p Q -s 0 entropy_out_sarwae.hdf5 -o entropy_out_sarwae_k2_Q12.txt
 ```
 
 Once we have these results, we can download them into our R-project `data/` folder and then use R to visualize the results!
