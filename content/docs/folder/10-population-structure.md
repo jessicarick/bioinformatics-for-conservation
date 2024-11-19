@@ -80,7 +80,17 @@ loadingplot(loadings2,
 ### Clustering analyses
 To go beyond visualizing our data, we can use clustering algorithms to tell us which individuals, when grouped together, are in Hardy-Weinberg Equilibrium within their group but not among the groups. Two commonly used programs are [STRUCTURE](https://web.stanford.edu/group/pritchardlab/structure.html) (slow for SNP-scale datasets, but has the related [FASTstructure](https://rajanil.github.io/fastStructure/) which is designed to better deal with them) and [ADMIXTURE](https://dalexander.github.io/admixture/) (similar to STRUCTURE, but faster and designed for SNP data), and other relatively well-used ones include [NGSAdmix](https://www.popgen.dk/software/index.php/NgsAdmix) (allows the use of genotype likelihoods; within the ANGSD ecosystem of programs), [entropy](https://bitbucket.org/buerklelab/mixedploidy-entropy/src/master/) (requires the use of genotype likelihoods, and can handle mixed ploidy data!), [fineSTRUCTURE](http://paintmychromosomes.com/) (which is designed for dense/high-resolution sequencing data), etc.
 
-Together in class, we'll be running `ADMIXTURE` as an example, as it is relatively quick to run. We need our input data to be in PLINK format; I've already converted our `vcf` to the necessary PLINK files (`.bed`, `.bim`, and `.fam`). ADMIXTURE assumes that our SNPs are unlinked, so these SNPs have already been filtered to prune those that are in linkage disequilibrium with one another. We then need to choose the number of groups that we want to test in each run-- for these data, we'll run the program for K=1 to K=5. ADMIXTURE is installed as a module, so we can load it easily on the HPC.
+Together in class, we'll be running `ADMIXTURE` as an example, as it is relatively quick to run. We need our input data to be in [PLINK](https://www.cog-genomics.org/plink/1.9/input#bed) format; I've already converted our `vcf` to the necessary PLINK files (`.bed`, `.bim`, and `.fam`), but have added code below in case you need to do this yourself in the future. ADMIXTURE assumes that our SNPs are unlinked, so these SNPs have already been filtered to prune those that are in linkage disequilibrium with one another. We then need to choose the number of groups that we want to test in each run-- for these data, we'll run the program for K=1 to K=5. ADMIXTURE is installed as a module, so we can load it easily on the HPC.
+
+First, we'll convert our VCF into the PLINK files. In this code, we will allow for non-standard chromosome names (`--allow-extra-chr 0`), use the sample names for both individual IDs and population IDs (because we don't have the other metadata in the VCF at this point; `--double-id`), force the conversion to keep the reference alleles and alternative alleles the same (``--keep-allele-order`), and then ask it to create the `.bed` and associated files (`--make-bed`).
+
+```sh
+module load plink
+
+plink --vcf AC1_variants_filtered.recode.vcf --allow-extra-chr 0 --double-id --keep-allele-order --make-bed --out AC1_variants_filtered
+```
+
+Once the data have been converted, we could take a look at how they're formatted using the `less` command. If everything looks good, then we can move on to doing the ADMIXTURE analyses.
 
 ```sh
 module load admixture
