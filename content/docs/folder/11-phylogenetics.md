@@ -16,7 +16,7 @@ As with many of the other topics we've covered, there are many many options of w
 For most tree building programs, we need to have our data in an alignment format-- generally, most programs take either a [`fasta`](https://zhanggroup.org/FASTA/), [`nexus`](https://plewis.github.io/nexus/), or [`phylip`](https://www.phylo.org/index.php/help/phylip) format. I've already converted the filtered VCF we'll be using into a `.phy` file; if you need to do this in the future on your own, the easiest way is to use the `vcf2phylip.py` script from [this GitHub repository](https://github.com/edgardomortiz/vcf2phylip) (if you need this for your Project 2, I have also included it in the `project2_data/` directory in our `shared_data/` folder). This script can be used as follows:
 
 ```sh
-python vcf2phylip.py -i gila_variants_outgroup_filtered.vcf 
+/xdisk/jrick/consbioinf/shared_data/project2_data/vcf2phylip.py -i gila_variants_outgroup_filtered.vcf 
 ```
 
 This will output a phylip file with the same name as the input VCF file. There are other options for customizing the conversion process (including filtering again for missing data or minor allele frequency), which you can explore using `python vcf2phylip.py --help`.
