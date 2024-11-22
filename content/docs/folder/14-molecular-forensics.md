@@ -10,6 +10,14 @@ Molecular forensics is a generic term that is used to describe analyses of sampl
 
 *note that this page is a work in progress and currently incomplete*
 
+There are many programs and pipelines out there for analyzing metabarcoding and metagenomic data. Some programs or pipelines that are commonly used with these types of data:
+* [QIIME 2](https://qiime2.org/)
+* [DADA2 R package](https://benjjneb.github.io/dada2/)
+* [OBItools](https://git.metabarcoding.org/obitools/obitools/-/wikis/home)
+* [metabaR R package](https://metabarfactory.github.io/metabaR/index.html)
+* [USEARCH](https://www.drive5.com/usearch/)
+* [VSEARCH](https://github.com/torognes/vsearch)
+
 ## eDNA Metabarcoding Example
 For our in-class exercise, we are going to be analyzing an eDNA sample that was taken from an agave flower with the purpose of detecing *Leptonycteris* bat pollinators as a part of the study published in [Walker et al. 2022](https://doi.org/10.3390/ani12223075). Instead of specifically looking for bat DNA in the sample, we are going to analyze the data to see what all taxa we can find. For today, we'll be working completely on the UA HPC.
 
@@ -54,11 +62,7 @@ usearch -usearch_global SRR21894625_R1_zotus.fa \
 	-strand plus \
 	-maxaccepts 3
 
-## inspect the taxa in our results
+## inspect the taxa in our results (to exit the "less" command, type "q")
 less SRR21894625_bold_COI_hits.aln
-
-
-
-
 
 ```
