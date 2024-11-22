@@ -19,7 +19,7 @@ There are many programs and pipelines out there for analyzing metabarcoding and 
 * [VSEARCH](https://github.com/torognes/vsearch)
 
 ## eDNA Metabarcoding Example
-For our in-class exercise, we are going to be analyzing an eDNA sample that was taken from an agave flower with the purpose of detecing *Leptonycteris* bat pollinators as a part of the study published in [Walker et al. 2022](https://doi.org/10.3390/ani12223075). Instead of specifically looking for bat DNA in the sample, we are going to analyze the data to see what all taxa we can find. For today, we'll be working completely on the UA HPC.
+For our in-class exercise, we are going to be analyzing an eDNA sample that was taken from an agave flower with the purpose of detecing *Leptonycteris* bat pollinators as a part of the study published in [Walker et al. 2022](https://doi.org/10.3390/ani12223075). Instead of specifically looking for bat DNA in the sample, we are going to analyze the data to see what all taxa we can find. For today, we'll be working completely on the UA HPC and using the [USEARCH](https://www.drive5.com/usearch/) program for our analyses.
 
 ```sh
 ## usearch isn't a module, so we'll store the path to where it is installed
