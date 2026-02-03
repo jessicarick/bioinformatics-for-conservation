@@ -15,7 +15,7 @@ For the simplest estimation of relatedness among individuals, we can use the fol
 
 ```sh
 # save path to program installation
-alias ngsrelate="/xdisk/jrick/programs/ngsRelate/ngsRelate"
+alias ngsRelate="/xdisk/jrick/programs/ngsRelate/ngsRelate"
 
 # note that your VCF file needs to be zipped here. we'll first do that using bgzip
 bgzip -c AC1_chr1_variants_filtered.recode.vcf > AC1_chr1_variants_filtered.vcf.gz
